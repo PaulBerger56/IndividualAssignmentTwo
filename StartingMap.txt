@@ -1,0 +1,9 @@
+1~Coastal Town~False~0,0,2,4~You have just disembarked from your ship and are standing on the docks.@This looks like the start of an adventure!
+2~Forest~False~1,0,3,5~You have entered the thick forest which acts as the hunting grounds for the Coastal Town.
+3~Rocky Cliffs~False~2,0,0,6~You can see the ocean as you enter the area, but then you realize you are atop unclimbable cliffs.
+4~Sewers~False~0,1,5,7~You have found yourself in a maze of sewer pipes leading out of the Coastal town and into the wilderness.
+5~Mines~False~4,2,6,8~You can hear the clanging of pickaxes in the distance as you enter the mines.
+6~Mountain Summit~False~5,3,0,9~You look out and can see for miles as you make your way to the summit of the mountain.
+7~Swamp Lands~False~0,4,8,0~You have found yourself in a stinky swamp that the Town Sewers drain into.
+8~Misty Forest~False~7,5,9,0~You can barely see five feet in front of you through the thick fog and dense trees of the Misty Forest.
+9~Shipwreck Beach~False~8,6,0,0~You have found a beach, but quickly realize that it is covered in the remains of wrecked ships.

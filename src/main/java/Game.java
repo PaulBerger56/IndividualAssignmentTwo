@@ -6,10 +6,7 @@ public class Game {
     private static Map currentMap;
 
     public static void main(String[] args) {
-
         mainMenu();
-
-
     }
 
     public static void mainMenu() {
@@ -125,6 +122,7 @@ public class Game {
                 System.out.println("Which direction would you like to go? (N,S,E,W)\n" +
                         "Or type mm for main menu");
 
+                // takes the user's input and splits it just in case they type a command with an item name
                 String command = scanner.nextLine().toLowerCase();
                 String[] splitCommand = command.split(" ");
 
@@ -233,6 +231,7 @@ public class Game {
                     default:
                         System.out.println("------------------------------------------------------------------------------");
                         System.out.println("Sorry. That was an invalid input");
+                        break;
                 }
                 break;
             }

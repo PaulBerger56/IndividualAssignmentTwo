@@ -9,8 +9,6 @@ public class Puzzle {
     private final int startingTries;
     private int currentTries;
 
-
-
     public Puzzle(String name, String question, String solution, int startingTries) {
         this.name = name;
         this.question = question;

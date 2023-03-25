@@ -3,17 +3,15 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private int roomNumber;
-    private String name;
+    private final int roomNumber;
+    private final String name;
     private boolean visited;
-    private int westExit;
-    private int northExit;
-    private int eastExit;
-    private int southExit;
-    private ArrayList<String> description;
-
-    private ArrayList<Item> roomItems;
-
+    private final int westExit;
+    private final int northExit;
+    private final int eastExit;
+    private final int southExit;
+    private final ArrayList<String> description;
+    private final ArrayList<Item> roomItems;
     private Puzzle puzzle;
 
     public Room(int roomNumber, String name, boolean visited, int westExit, int northExit, int eastExit, int southExit) {
@@ -44,7 +42,7 @@ public class Room {
 
     public Item removeItemFromRoom(String itemName) {
         // removes a specific item from the room inventory.
-        // adding to player inventory will be implemented elsewhere
+        // returns an Item that can be added to the Player Inventory
         for(Item i: this.roomItems) {
             if(i.getName().equalsIgnoreCase(itemName)) {
                 System.out.println();
@@ -71,7 +69,6 @@ public class Room {
             }
         }
     }
-
 
     public void addDescription(String description) {
         this.description.add(description);

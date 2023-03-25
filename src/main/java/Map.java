@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Map {
 
-    private ArrayList<Room> rooms;
+    private final ArrayList<Room> rooms;
 
     public Map(String startingMap, String startingItems, String startingPuzzles) {
         this.rooms = addRooms(startingMap);
@@ -52,7 +52,7 @@ public class Map {
             int south = Integer.parseInt(specificDirections[3]);
 
             // Creates new Room objects and adds them to the arraylist. DOES NOT HAVE DESCRIPTION YET
-            addedRooms.add(new Room(roomNumber, name, visited,west, north, east, south));
+            addedRooms.add(new Room(roomNumber, name, visited, west, north, east, south));
 
             // Breaks the Description down, then adds it to the arraylist of the current Room.
             String[] brokenDescriptions = description.split("@");

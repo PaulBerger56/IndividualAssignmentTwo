@@ -91,15 +91,11 @@ public class Game {
             int previousRoom = currentPlayer.getPreviousRoomNumber();
 
             // reset the puzzle from the previous room if not solved
-            //if the previous room has a puzzle, and that puzzle is not solved
+            // if the previous room has a puzzle, and that puzzle is not solved
             if(currentPlayer.getPreviousRoomNumber() > 0 && currentGameRooms.get(previousRoom - 1).doesRoomContainPuzzle()
                     && !currentGameRooms.get(previousRoom - 1).getPuzzle().isSolved()) {
                 currentGameRooms.get(previousRoom - 1).getPuzzle().resetPuzzle();
             }
-
-            // Line to break the messages apart and increase readability
-//            System.out.println();
-//            System.out.println("------------------------------------------------------------------------------");
 
             // If there is a puzzle in the room, the player will automatically play it
             if(currentGameRooms.get(index).doesRoomContainPuzzle() && !currentGameRooms.get(index).getPuzzle().isSolved()

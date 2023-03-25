@@ -6,7 +6,7 @@ public class Player {
     private int healthPoints;
     private int currentRoomNumber;
     private int previousRoomNumber;
-    private ArrayList<Item> inventory;
+    private final ArrayList<Item> inventory;
 
     // Constructor for new game that takes in the name, but starts everything else as default
     public Player(String name) {
@@ -71,7 +71,7 @@ public class Player {
 
     public Item removeItemFromPlayer(String itemName) {
         // removes a specific item from the room inventory.
-        // adding to player inventory will be implemented elsewhere
+        // returns an Item that can be added to the room inventory
         for(Item i: this.inventory) {
             if(i.getName().equalsIgnoreCase(itemName)) {
                 System.out.println();
@@ -123,8 +123,6 @@ public class Player {
     public int getHealthPoints() {
         return healthPoints;
     }
-
-
 
     public ArrayList<Item> getItems() {
         return inventory;

@@ -3,14 +3,16 @@ import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Map {
 
     private ArrayList<Room> rooms;
 
-    public Map(String startingMap) {
+    public Map(String startingMap, String startingItems, String startingPuzzles) {
         this.rooms = addRooms(startingMap);
+        fillRooms(startingItems, startingPuzzles);
     }
 
     public ArrayList<Room> addRooms(String startingMap) {
@@ -64,6 +66,69 @@ public class Map {
         return addedRooms;
     }
 
+    public void fillRooms(String startingItems, String startingPuzzles) {
+        //reads in the item and puzzle files and puts them in the appropriate rooms
+        File itemFile = new File(startingItems);
+        File puzzleFile = new File(startingPuzzles);
+        ArrayList<Item> tempItems = new ArrayList<>();
+        ArrayList<Puzzle> tempPuzzles = new ArrayList<>();
+
+        // read in both items and puzzles
+        try {
+            Scanner itemInput = new Scanner(itemFile);
+            Scanner puzzleInput = new Scanner(puzzleFile);
+
+            while(itemInput.hasNextLine()) {
+                String itemLine = itemInput.nextLine();
+                String[] itemPieces = itemLine.split("~");
+
+                String itemName = itemPieces[0];
+                String itemDescription = itemPieces[1];
+                int itemStartingRoom = Integer.parseInt(itemPieces[2]);
+
+                tempItems.add(new Item(itemName, itemDescription, itemStartingRoom));
+            }
+
+            while(puzzleInput.hasNextLine()) {
+                String puzzleLine = puzzleInput.nextLine();
+                String[] puzzlePieces = puzzleLine.split("~");
+
+                String puzzleName = puzzlePieces[0];
+                String puzzleQuestion = puzzlePieces[1];
+                String puzzleSolution = puzzlePieces[2];
+                int puzzleTries = Integer.parseInt(puzzlePieces[3]);
+
+                tempPuzzles.add(new Puzzle(puzzleName, puzzleQuestion, puzzleSolution, puzzleTries));
+            }
+
+            itemInput.close();
+            puzzleInput.close();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        // set the items in the appropriate rooms
+        for(Item i: tempItems) {
+            this.rooms.get(i.getStartingRoom()-1).addItemToRoom(i);
+        }
+
+        // set the puzzles in the appropriate rooms
+        // loops through all of the puzzles
+        for(Puzzle p: tempPuzzles) {
+            // while loop guesses a random room number.  If the room does not have a puzzle,
+            // the current one is added.  If not, the random number is tried again until the current puzzle
+            // is placed in a room.
+            while(true) {
+                int index = (int) (Math.random() * this.rooms.size());
+                if (!this.rooms.get(index).doesRoomContainPuzzle()) {
+                    this.rooms.get(index).addPuzzleToRoom(p);
+                    break;
+                }
+            }
+        }
+    }
+
     // checks to see if the current room has a connecting room based on the direction
     // entered.
     public boolean doesRoomContainDirection(int currentRoomNumber, String direction) {
@@ -100,16 +165,6 @@ public class Map {
         }
         return result;
     }
-
-//    public int move(int currentRoomNumber) {
-//        // checks to see if the current room is connected to the room to move to
-//        int index = currentRoomNumber -1;
-//        if(rooms.get(index).getWestExit() != 0 || rooms.get(index).getNorthExit() != 0
-//           || rooms.get(index).getEastExit() != 0 || rooms.get(index).getSouthExit() != 0) {
-//            return true;
-//        }
-//        return false;
-//    }
 
     public ArrayList<Room> getRooms() {
         return rooms;

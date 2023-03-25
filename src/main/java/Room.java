@@ -14,7 +14,7 @@ public class Room {
 
     private ArrayList<Item> roomItems;
 
-    private ArrayList<Puzzle> puzzleHolder;
+    private Puzzle puzzle;
 
     public Room(int roomNumber, String name, boolean visited, int westExit, int northExit, int eastExit, int southExit) {
         this.roomNumber = roomNumber;
@@ -26,7 +26,7 @@ public class Room {
         this.southExit = southExit;
         this.description = new ArrayList<>();
         this.roomItems = new ArrayList<>();
-        this.puzzleHolder = new ArrayList<>();
+        this.puzzle = null;
     }
 
     public boolean doesRoomContainItem(String itemName) {
@@ -39,7 +39,7 @@ public class Room {
     }
 
     public boolean doesRoomContainPuzzle() {
-        return this.puzzleHolder.size() > 0;
+        return this.puzzle != null;
     }
 
     public void removeItemFromRoom(String itemName) {
@@ -55,10 +55,16 @@ public class Room {
     }
 
     public void printRoomInventory() {
-        System.out.println("---------------");
-        System.out.println("Items in the " + this.name + ":");
-        for(Item i: this.roomItems) {
-            System.out.println(i.getName());
+        if(this.roomItems.isEmpty()) {
+            System.out.println("------------------------------------------------------------------------------");
+            System.out.println();
+            System.out.println("There are no items in this room");
+            System.out.println();
+        } else {
+            System.out.println("Items in the " + this.name + ":");
+            for(Item i: this.roomItems) {
+                System.out.println(i.getName());
+            }
         }
     }
 
@@ -68,7 +74,7 @@ public class Room {
     }
 
     public void addPuzzleToRoom(Puzzle puzzle) {
-        this.puzzleHolder.add(puzzle);
+        this.puzzle = puzzle;
     }
 
     public void addItemToRoom(Item item) {
@@ -81,6 +87,10 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    public Puzzle getPuzzle() {
+        return this.puzzle;
     }
 
     // sets visited status to true

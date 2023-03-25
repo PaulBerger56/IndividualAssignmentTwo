@@ -6,39 +6,44 @@ public class Puzzle {
     private final String question;
     private final String solution;
     private boolean solved;
-    private int tries;
+    private final int startingTries;
+    private int currentTries;
 
 
 
-    public Puzzle(String name, String question, String solution, int tries) {
+    public Puzzle(String name, String question, String solution, int startingTries) {
         this.name = name;
         this.question = question;
         this.solution = solution;
-        this.tries = tries;
+        this.startingTries = startingTries;
         this.solved = false;
+        this.currentTries = startingTries;
     }
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-
+        System.out.println();
+        System.out.println("You have encountered a Puzzle!");
         while(true) {
+            System.out.println();
             System.out.println("---------------------------------------------");
-            if (this.tries <= 0) {
+            if (this.currentTries <= 0) {
                 System.out.println("Sorry, you have run out of tries!");
                 System.out.println("You can always come back and try again!");
-
+                System.out.println("---------------------------------------------");
+                System.out.println();
                 break;
             } else {
-                System.out.println("You have " + this.tries + " tries left");
+                System.out.println("You have " + this.currentTries + " tries left");
                 System.out.println(this.question);
 
                 String answer = scanner.nextLine();
                 if (answer.equalsIgnoreCase(solution)) {
                     solvePuzzle();
-                    System.out.println("-----------------------------");
                     break;
                 } else {
                     System.out.println("Sorry that is not the correct answer");
+                    System.out.println();
                     decrementTries();
                 }
             }
@@ -46,7 +51,11 @@ public class Puzzle {
     }
 
     public void decrementTries() {
-        this.tries--;
+        this.currentTries--;
+    }
+
+    public void resetPuzzle() {
+        this.currentTries = this.startingTries;
     }
 
     public void solvePuzzle() {
@@ -72,6 +81,6 @@ public class Puzzle {
     }
 
     public int getTries() {
-        return tries;
+        return currentTries;
     }
 }

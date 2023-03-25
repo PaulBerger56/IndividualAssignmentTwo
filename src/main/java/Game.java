@@ -6,27 +6,8 @@ public class Game {
     private static Map currentMap;
 
     public static void main(String[] args) {
-        Item food = new Item("Food", "You can eat this");
-        Item sword = new Item("Sword", "Swing that thing");
-        Player paul = new Player("Paul");
-        currentMap = new Map("StartingMap.txt");
-        Puzzle singleWordPuzzle = new Puzzle("Single Word Puzzle", "How do you write out the word 2?", "two", 3);
-        Puzzle twoWordPuzzle = new Puzzle("Two Word Puzzle", "How do you write Hello Moto?", "Hello Moto", 3);
-        paul.printInventory();
-        paul.addItemToPlayer(food);
-        paul.printInventory();
-        currentMap = new Map("StartingMap.txt");
-        currentMap.getRooms().get(1).addItemToRoom(food);
-        currentMap.getRooms().get(1).addItemToRoom(sword);
-        currentMap.getRooms().get(1).printRoomInventory();
-        System.out.println("----------------");
-        currentMap.getRooms().get(1).removeItemFromRoom("food");
-        currentMap.getRooms().get(1).printRoomInventory();
-        currentMap.getRooms().get(1).removeItemFromRoom("food");
 
-        singleWordPuzzle.play();
-        System.out.println("Now the next puzzle");
-        twoWordPuzzle.play();
+        mainMenu();
 
 
     }
@@ -51,7 +32,7 @@ public class Game {
                 case 2:
                     System.out.println("Please enter the name of the save file you would like to load");
                     String saveFile = scanner.nextLine();
-                    loadGame(saveFile);
+                    loadGame(saveFile, "StartingItems", "StartingPuzzles");
                     break;
                 case 3:
                     System.out.println("Saving current game");
@@ -71,7 +52,7 @@ public class Game {
 
     // Starts a new game with the default map
     public static void newGame() {
-        currentMap = new Map("StartingMap.txt");
+        currentMap = new Map("StartingMap.txt", "StartingItems.txt", "StartingPuzzles.txt");
         System.out.println("What is your name explorer?");
         String playerName = scanner.nextLine();
         Player player = new Player(playerName);
@@ -80,8 +61,8 @@ public class Game {
 
     // IN PROGRESS!
     // Loads a save file from a .txt file with a previous game's details
-    public static void loadGame(String saveFile) {
-        currentMap = new Map(saveFile);
+    public static void loadGame(String saveFile, String itemFile, String puzzleFile) {
+        currentMap = new Map(saveFile, itemFile, puzzleFile);
         // Get the player from the save file somehow
         Player savedPlayer = new Player("SavedPlayer");
         play(1, savedPlayer);
@@ -107,10 +88,27 @@ public class Game {
         while(true) {
             //get the index of the current room by subtracting room number by 1
             int index = currentRoom - 1;
+            int previousRoom = currentPlayer.getPreviousRoomNumber();
 
+            System.out.println("Current room: " + currentRoom);
+            System.out.println("Previous room: " + previousRoom);
+
+            // reset the puzzle from the previous room if not solved
+            //if the previous room has a puzzle, and that puzzle is not solved
+            if(currentGameRooms.get(previousRoom).doesRoomContainPuzzle()
+                    && !currentGameRooms.get(previousRoom).getPuzzle().isSolved()) {
+                currentGameRooms.get(previousRoom).getPuzzle().resetPuzzle();
+            }
 
             // Line to break the messages apart and increase readability
             System.out.println("------------------------------------------------------------------------------");
+
+            // If there is a puzzle in the room, the player will automatically play it
+            if(currentGameRooms.get(index).doesRoomContainPuzzle() && !currentGameRooms.get(index).getPuzzle().isSolved()
+                    && currentGameRooms.get(index).getPuzzle().getTries()>0) {
+                currentGameRooms.get(index).getPuzzle().play();
+            }
+
             // if the room has been visited, print a message
             if(currentGameRooms.get(index).isVisited()) {
                 System.out.println("This looks familiar...");
@@ -129,9 +127,9 @@ public class Game {
                 System.out.println("Which direction would you like to go? (N,S,E,W)\n" +
                         "Or type mm for main menu");
 
-                String direction = scanner.nextLine().toLowerCase();
+                String command = scanner.nextLine().toLowerCase();
 
-                switch (direction) {
+                switch (command) {
                     case "w":
                         // check if the current room has a new room available in the direction entered
                         if(currentMap.doesRoomContainDirection(currentRoom, "w")){
@@ -154,6 +152,7 @@ public class Game {
                             // Set the current room as visited before moving on
                             currentGameRooms.get(index).setVisited();
                             // Change the current room to the value of the next room direction
+                            currentPlayer.setPreviousRoomNumber(currentRoom);
                             currentRoom = currentGameRooms.get(index).getNorthExit();
                         } else {
                             System.out.println("------------------------------------------------------------------------------");
@@ -167,6 +166,7 @@ public class Game {
                             // Set the current room as visited before moving on
                             currentGameRooms.get(index).setVisited();
                             // Change the current room to the value of the next room direction
+                            currentPlayer.setPreviousRoomNumber(currentRoom);
                             currentRoom = currentGameRooms.get(index).getEastExit();
                         } else {
                             System.out.println("------------------------------------------------------------------------------");
@@ -180,6 +180,7 @@ public class Game {
                             // Set the current room as visited before moving on
                             currentGameRooms.get(index).setVisited();
                             // Change the current room to the value of the next room direction
+                            currentPlayer.setPreviousRoomNumber(currentRoom);
                             currentRoom = currentGameRooms.get(index).getSouthExit();
                         } else {
                             System.out.println("------------------------------------------------------------------------------");
@@ -187,6 +188,10 @@ public class Game {
                         }
                         break;
 
+                    case "explore":
+                        // prints the inventory of the current room
+                        currentGameRooms.get(currentRoom).printRoomInventory();
+                        break;
                     case "mm":
                         System.out.println("Returning to Main Menu");
                         System.out.println();

@@ -13,7 +13,7 @@ public class Player {
         this.name = name;
         this.healthPoints = 500;
         this.currentRoomNumber = 1;
-        this.previousRoomNumber = 0;
+        this.previousRoomNumber = 1;
         this.inventory = new ArrayList<>();
     }
 
@@ -66,16 +66,17 @@ public class Player {
         return "Sorry, you don't have an item by that name";
     }
 
-    public void removeItemFromPlayer(String itemName) {
+    public Item removeItemFromPlayer(String itemName) {
         // removes a specific item from the room inventory.
         // adding to player inventory will be implemented elsewhere
         for(Item i: this.inventory) {
             if(i.getName().equalsIgnoreCase(itemName)) {
-                System.out.println(itemName + " has been removed from " + this.name + "'s inventory");
+                System.out.println(i.getName() + " has been removed from " + this.name + "'s inventory");
                 this.inventory.remove(i);
-                break;
+                return i;
             }
         }
+        return null;
     }
 
     // Adds to hp pool with no cap currently

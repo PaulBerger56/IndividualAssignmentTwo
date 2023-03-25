@@ -43,7 +43,6 @@ public class Puzzle {
                     break;
                 } else {
                     System.out.println("Sorry that is not the correct answer");
-                    System.out.println();
                     decrementTries();
                 }
             }
@@ -61,6 +60,7 @@ public class Puzzle {
     public void solvePuzzle() {
         System.out.println(" ");
         System.out.println("Congratulations! You Solved the Puzzle Correctly!");
+        System.out.println();
         this.solved = true;
     }
 

@@ -88,10 +88,7 @@ public class Game {
         while(true) {
             //get the index of the current room by subtracting room number by 1
             int index = currentRoom - 1;
-            int previousRoom = currentPlayer.getPreviousRoomNumber();
-
-            System.out.println("Current room: " + currentRoom);
-            System.out.println("Previous room: " + previousRoom);
+            int previousRoom = currentPlayer.getPreviousRoomNumber() - 1;
 
             // reset the puzzle from the previous room if not solved
             //if the previous room has a puzzle, and that puzzle is not solved
@@ -128,8 +125,9 @@ public class Game {
                         "Or type mm for main menu");
 
                 String command = scanner.nextLine().toLowerCase();
+                String[] splitCommand = command.split(" ");
 
-                switch (command) {
+                switch (splitCommand[0]) {
                     case "w":
                         // check if the current room has a new room available in the direction entered
                         if(currentMap.doesRoomContainDirection(currentRoom, "w")){
@@ -190,8 +188,30 @@ public class Game {
 
                     case "explore":
                         // prints the inventory of the current room
-                        currentGameRooms.get(currentRoom).printRoomInventory();
+                        currentGameRooms.get(index).printRoomInventory();
                         break;
+
+                    case "pickup":
+                        // if item exists in room inventory, removes it from the room and adds it to the player inventory
+                        if(currentGameRooms.get(index).doesRoomContainItem(splitCommand[1])) {
+                            Item tempItem = currentGameRooms.get(index).removeItemFromRoom(splitCommand[1]);
+                            currentPlayer.addItemToPlayer(tempItem);
+                        } else {
+                            System.out.println("The room does not contain that item");
+                        }
+                        break;
+
+                    case "drop":
+                        // if item exists in player's inventory, removes it from player and adds it to the room's inventory
+                        if(currentPlayer.doesPlayerHaveItem(splitCommand[1])) {
+                            Item tempItem = currentPlayer.removeItemFromPlayer(splitCommand[1]);
+                            currentGameRooms.get(index).addItemToRoom(tempItem);
+                            System.out.println(tempItem.getName() + " has been added to the " + currentGameRooms.get(index).getName() + "'s inventory");
+                        } else {
+                            System.out.println("That item is not in " + currentPlayer.getName() + "'s inventory");
+                        }
+                        break;
+
                     case "mm":
                         System.out.println("Returning to Main Menu");
                         System.out.println();

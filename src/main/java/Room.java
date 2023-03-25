@@ -42,16 +42,17 @@ public class Room {
         return this.puzzle != null;
     }
 
-    public void removeItemFromRoom(String itemName) {
+    public Item removeItemFromRoom(String itemName) {
         // removes a specific item from the room inventory.
         // adding to player inventory will be implemented elsewhere
         for(Item i: this.roomItems) {
             if(i.getName().equalsIgnoreCase(itemName)) {
-                System.out.println(itemName + " has been removed from the room");
+                System.out.println(i.getName() + " has been removed from the room");
                 this.roomItems.remove(i);
-                break;
+                return i;
             }
         }
+        return null;
     }
 
     public void printRoomInventory() {

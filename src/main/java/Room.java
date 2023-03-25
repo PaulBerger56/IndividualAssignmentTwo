@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.ArrayList;
 
 public class Room {
@@ -11,6 +12,10 @@ public class Room {
     private int southExit;
     private ArrayList<String> description;
 
+    private ArrayList<Item> roomItems;
+
+    private ArrayList<Puzzle> puzzleHolder;
+
     public Room(int roomNumber, String name, boolean visited, int westExit, int northExit, int eastExit, int southExit) {
         this.roomNumber = roomNumber;
         this.name = name;
@@ -20,11 +25,54 @@ public class Room {
         this.eastExit = eastExit;
         this.southExit = southExit;
         this.description = new ArrayList<>();
+        this.roomItems = new ArrayList<>();
+        this.puzzleHolder = new ArrayList<>();
+    }
+
+    public boolean doesRoomContainItem(String itemName) {
+        for(Item i: this.roomItems) {
+            if(i.getName().equalsIgnoreCase(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean doesRoomContainPuzzle() {
+        return this.puzzleHolder.size() > 0;
+    }
+
+    public void removeItemFromRoom(String itemName) {
+        // removes a specific item from the room inventory.
+        // adding to player inventory will be implemented elsewhere
+        for(Item i: this.roomItems) {
+            if(i.getName().equalsIgnoreCase(itemName)) {
+                System.out.println(itemName + " has been removed from the room");
+                this.roomItems.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void printRoomInventory() {
+        System.out.println("---------------");
+        System.out.println("Items in the " + this.name + ":");
+        for(Item i: this.roomItems) {
+            System.out.println(i.getName());
+        }
     }
 
 
     public void addDescription(String description) {
         this.description.add(description);
+    }
+
+    public void addPuzzleToRoom(Puzzle puzzle) {
+        this.puzzleHolder.add(puzzle);
+    }
+
+    public void addItemToRoom(Item item) {
+        this.roomItems.add(item);
     }
 
     public int getRoomNumber() {

@@ -26,6 +26,58 @@ public class Player {
         this.inventory = new ArrayList<>(savedItems);
     }
 
+    public void printInventory() {
+        // Either prints the player's inventory, or gives them an empty message
+        // I would add in print description here, but that would make inspect redundant
+        if(this.inventory.isEmpty()) {
+            System.out.println("--------------------------------------");
+            System.out.println("You didn't pick up any items yet");
+        } else {
+            System.out.println("--------------------------------------");
+            System.out.println("Items in " + this.name + "'s inventory:");
+            for(Item i: this.inventory) {
+                System.out.println(i.getName());
+            }
+        }
+    }
+
+    public void addItemToPlayer(Item item) {
+        this.inventory.add(item);
+        System.out.println("--------------------------------------");
+        System.out.println(item.getName() + " has been added to " + this.name + "'s inventory");
+    }
+
+    public boolean doesPlayerHaveItem(String itemName) {
+        for(Item i: this.inventory) {
+            if(i.getName().equalsIgnoreCase(itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getItemDescription(String itemName) {
+        // returns a specific Item's description, or gives a message that it does not exist
+        for(Item i: this.inventory) {
+            if(i.getName().equalsIgnoreCase(itemName)) {
+                return i.getName() + ": " + i.getDescription();
+            }
+        }
+        return "Sorry, you don't have an item by that name";
+    }
+
+    public void removeItemFromPlayer(String itemName) {
+        // removes a specific item from the room inventory.
+        // adding to player inventory will be implemented elsewhere
+        for(Item i: this.inventory) {
+            if(i.getName().equalsIgnoreCase(itemName)) {
+                System.out.println(itemName + " has been removed from " + this.name + "'s inventory");
+                this.inventory.remove(i);
+                break;
+            }
+        }
+    }
+
     // Adds to hp pool with no cap currently
     public int addHealthPoints(int additionalHP) {
         this.healthPoints += additionalHP;
@@ -66,9 +118,7 @@ public class Player {
         return healthPoints;
     }
 
-    public void addItem(Item item) {
-        this.inventory.add(item);
-    }
+
 
     public ArrayList<Item> getItems() {
         return inventory;

@@ -6,7 +6,29 @@ public class Game {
     private static Map currentMap;
 
     public static void main(String[] args) {
-        mainMenu();
+        Item food = new Item("Food", "You can eat this");
+        Item sword = new Item("Sword", "Swing that thing");
+        Player paul = new Player("Paul");
+        currentMap = new Map("StartingMap.txt");
+        Puzzle singleWordPuzzle = new Puzzle("Single Word Puzzle", "How do you write out the word 2?", "two", 3);
+        Puzzle twoWordPuzzle = new Puzzle("Two Word Puzzle", "How do you write Hello Moto?", "Hello Moto", 3);
+        paul.printInventory();
+        paul.addItemToPlayer(food);
+        paul.printInventory();
+        currentMap = new Map("StartingMap.txt");
+        currentMap.getRooms().get(1).addItemToRoom(food);
+        currentMap.getRooms().get(1).addItemToRoom(sword);
+        currentMap.getRooms().get(1).printRoomInventory();
+        System.out.println("----------------");
+        currentMap.getRooms().get(1).removeItemFromRoom("food");
+        currentMap.getRooms().get(1).printRoomInventory();
+        currentMap.getRooms().get(1).removeItemFromRoom("food");
+
+        singleWordPuzzle.play();
+        System.out.println("Now the next puzzle");
+        twoWordPuzzle.play();
+
+
     }
 
     public static void mainMenu() {

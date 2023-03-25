@@ -1,0 +1,6 @@
+Yes or No~Is the answer to this question yes or no?~No~2
+Two~How do you write the word 2?~two~3
+Jeremiah~Jeremiah was a ....?~bullfrog~5
+Georgia~What state is Atlanta the capitol of? (Please write out the full name)~Georgia~1
+Month~What month is Thanksgiving in?~November~4
+Nursery Rhyme~Hey, diddle, diddle, the cat and the fiddle. The cow Jumped over the what?~Moon~8

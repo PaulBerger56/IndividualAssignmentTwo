@@ -47,6 +47,8 @@ public class Room {
         // adding to player inventory will be implemented elsewhere
         for(Item i: this.roomItems) {
             if(i.getName().equalsIgnoreCase(itemName)) {
+                System.out.println();
+                System.out.println("------------------------------------------------------------------------------");
                 System.out.println(i.getName() + " has been removed from the room");
                 this.roomItems.remove(i);
                 return i;
@@ -57,11 +59,12 @@ public class Room {
 
     public void printRoomInventory() {
         if(this.roomItems.isEmpty()) {
+            System.out.println();
             System.out.println("------------------------------------------------------------------------------");
-            System.out.println();
             System.out.println("There are no items in this room");
-            System.out.println();
         } else {
+            System.out.println();
+            System.out.println("------------------------------------------------------------------------------");
             System.out.println("Items in the " + this.name + ":");
             for(Item i: this.roomItems) {
                 System.out.println(i.getName());

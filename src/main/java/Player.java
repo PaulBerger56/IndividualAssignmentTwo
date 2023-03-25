@@ -13,7 +13,7 @@ public class Player {
         this.name = name;
         this.healthPoints = 500;
         this.currentRoomNumber = 1;
-        this.previousRoomNumber = 1;
+        this.previousRoomNumber = 0;
         this.inventory = new ArrayList<>();
     }
 
@@ -30,11 +30,12 @@ public class Player {
         // Either prints the player's inventory, or gives them an empty message
         // I would add in print description here, but that would make inspect redundant
         if(this.inventory.isEmpty()) {
-            System.out.println("--------------------------------------");
-            System.out.println("You didn't pick up any items yet");
             System.out.println();
+            System.out.println("------------------------------------------------------------------------------");
+            System.out.println("You didn't pick up any items yet");
         } else {
-            System.out.println("--------------------------------------");
+            System.out.println();
+            System.out.println("------------------------------------------------------------------------------");
             System.out.println("Items in " + this.name + "'s inventory:");
             for(Item i: this.inventory) {
                 System.out.println(i.getName());
@@ -44,7 +45,8 @@ public class Player {
 
     public void addItemToPlayer(Item item) {
         this.inventory.add(item);
-        System.out.println("--------------------------------------");
+        System.out.println();
+        System.out.println("------------------------------------------------------------------------------");
         System.out.println(item.getName() + " has been added to " + this.name + "'s inventory");
     }
 
@@ -72,6 +74,8 @@ public class Player {
         // adding to player inventory will be implemented elsewhere
         for(Item i: this.inventory) {
             if(i.getName().equalsIgnoreCase(itemName)) {
+                System.out.println();
+                System.out.println("------------------------------------------------------------------------------");
                 System.out.println(i.getName() + " has been removed from " + this.name + "'s inventory");
                 this.inventory.remove(i);
                 return i;

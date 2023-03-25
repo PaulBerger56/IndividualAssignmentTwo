@@ -22,16 +22,12 @@ public class Puzzle {
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println();
         System.out.println("You have encountered a Puzzle!");
         while(true) {
-            System.out.println();
-            System.out.println("---------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------");
             if (this.currentTries <= 0) {
                 System.out.println("Sorry, you have run out of tries!");
                 System.out.println("You can always come back and try again!");
-                System.out.println("---------------------------------------------");
-                System.out.println();
                 break;
             } else {
                 System.out.println("You have " + this.currentTries + " tries left");
@@ -42,6 +38,8 @@ public class Puzzle {
                     solvePuzzle();
                     break;
                 } else {
+                    System.out.println();
+                    System.out.println("------------------------------------------------------------------------------");
                     System.out.println("Sorry that is not the correct answer");
                     decrementTries();
                 }
@@ -59,8 +57,8 @@ public class Puzzle {
 
     public void solvePuzzle() {
         System.out.println(" ");
+        System.out.println("------------------------------------------------------------------------------");
         System.out.println("Congratulations! You Solved the Puzzle Correctly!");
-        System.out.println();
         this.solved = true;
     }
 

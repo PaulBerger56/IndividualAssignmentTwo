@@ -51,6 +51,8 @@ public class Game {
     // Starts a new game with the default map
     public static void newGame() {
         currentMap = new Map("StartingMap.txt", "StartingItems.txt", "StartingPuzzles.txt");
+        System.out.println();
+        System.out.println("------------------------------------------------------------------------------");
         System.out.println("What is your name explorer?");
         String playerName = scanner.nextLine();
         Player player = new Player(playerName);
@@ -86,17 +88,18 @@ public class Game {
         while(true) {
             //get the index of the current room by subtracting room number by 1
             int index = currentRoom - 1;
-            int previousRoom = currentPlayer.getPreviousRoomNumber() - 1;
+            int previousRoom = currentPlayer.getPreviousRoomNumber();
 
             // reset the puzzle from the previous room if not solved
             //if the previous room has a puzzle, and that puzzle is not solved
-            if(currentGameRooms.get(previousRoom).doesRoomContainPuzzle()
-                    && !currentGameRooms.get(previousRoom).getPuzzle().isSolved()) {
-                currentGameRooms.get(previousRoom).getPuzzle().resetPuzzle();
+            if(currentPlayer.getPreviousRoomNumber() > 0 && currentGameRooms.get(previousRoom - 1).doesRoomContainPuzzle()
+                    && !currentGameRooms.get(previousRoom - 1).getPuzzle().isSolved()) {
+                currentGameRooms.get(previousRoom - 1).getPuzzle().resetPuzzle();
             }
 
             // Line to break the messages apart and increase readability
-            System.out.println("------------------------------------------------------------------------------");
+//            System.out.println();
+//            System.out.println("------------------------------------------------------------------------------");
 
             // If there is a puzzle in the room, the player will automatically play it
             if(currentGameRooms.get(index).doesRoomContainPuzzle() && !currentGameRooms.get(index).getPuzzle().isSolved()
@@ -106,9 +109,13 @@ public class Game {
 
             // if the room has been visited, print a message
             if(currentGameRooms.get(index).isVisited()) {
+                System.out.println();
+                System.out.println("------------------------------------------------------------------------------");
                 System.out.println("This looks familiar...");
             }
             // Print room message and all descriptions to the user
+            System.out.println();
+            System.out.println("------------------------------------------------------------------------------");
             System.out.println("You are curently in Room " + currentGameRooms.get(index).getRoomNumber() + " The " + currentGameRooms.get(index).getName());
             for(String description: currentGameRooms.get(index).getDescription()) {
                 System.out.println(description);
@@ -192,21 +199,39 @@ public class Game {
 
                     case "pickup":
                         // if item exists in room inventory, removes it from the room and adds it to the player inventory
-                        if(currentGameRooms.get(index).doesRoomContainItem(splitCommand[1])) {
+                        if(splitCommand.length == 1) {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
+                            System.out.println("Please enter the name of the item you would like to pickup after the command");
+                            break;
+                        }
+                        else if (currentGameRooms.get(index).doesRoomContainItem(splitCommand[1])) {
                             Item tempItem = currentGameRooms.get(index).removeItemFromRoom(splitCommand[1]);
                             currentPlayer.addItemToPlayer(tempItem);
                         } else {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
                             System.out.println("The room does not contain that item");
                         }
                         break;
 
                     case "drop":
                         // if item exists in player's inventory, removes it from player and adds it to the room's inventory
+                        if(splitCommand.length == 1) {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
+                            System.out.println("Please enter the name of the item you would like to drop after the command");
+                            break;
+                        }
                         if(currentPlayer.doesPlayerHaveItem(splitCommand[1])) {
                             Item tempItem = currentPlayer.removeItemFromPlayer(splitCommand[1]);
                             currentGameRooms.get(index).addItemToRoom(tempItem);
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
                             System.out.println(tempItem.getName() + " has been added to the " + currentGameRooms.get(index).getName() + "'s inventory");
                         } else {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
                             System.out.println("That item is not in " + currentPlayer.getName() + "'s inventory");
                         }
                         break;
@@ -216,9 +241,19 @@ public class Game {
                         break;
 
                     case "inspect":
+                        if(splitCommand.length == 1) {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
+                            System.out.println("Please enter the name of the item you would like to inspect after the command");
+                            break;
+                        }
                         if(currentPlayer.doesPlayerHaveItem(splitCommand[1])) {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
                             System.out.println(currentPlayer.getItemDescription(splitCommand[1]));
                         } else {
+                            System.out.println();
+                            System.out.println("------------------------------------------------------------------------------");
                             System.out.println("That item is not in " + currentPlayer.getName() + "'s inventory");
                         }
                         break;
@@ -229,6 +264,7 @@ public class Game {
                         mainMenu();
 
                     default:
+                        System.out.println();
                         System.out.println("------------------------------------------------------------------------------");
                         System.out.println("Sorry. That was an invalid input");
                         break;

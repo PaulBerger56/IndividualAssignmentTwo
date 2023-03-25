@@ -32,6 +32,7 @@ public class Player {
         if(this.inventory.isEmpty()) {
             System.out.println("--------------------------------------");
             System.out.println("You didn't pick up any items yet");
+            System.out.println();
         } else {
             System.out.println("--------------------------------------");
             System.out.println("Items in " + this.name + "'s inventory:");

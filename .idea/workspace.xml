@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="af2f5aac-2cbd-42e9-9f19-b0e4f8c72b13" name="Changes" comment="Started to implement gameplay - Paul">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="af2f5aac-2cbd-42e9-9f19-b0e4f8c72b13" name="Changes" comment="added explore, pickup, and drop  - Paul">
       <change beforePath="$PROJECT_DIR$/src/main/java/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Puzzle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Puzzle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Room.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +85,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679708377869</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="added explore, pickup, and drop  - Paul">
+      <created>1679710790712</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1679710790712</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -106,6 +109,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Finished the item and puzzle behavior - Paul" />
     <MESSAGE value="Started to implement gameplay - Paul" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started to implement gameplay - Paul" />
+    <MESSAGE value="added explore, pickup, and drop  - Paul" />
+    <option name="LAST_COMMIT_MESSAGE" value="added explore, pickup, and drop  - Paul" />
   </component>
 </project>

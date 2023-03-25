@@ -45,6 +45,7 @@ public class Game {
                 default:
                     System.out.println("Sorry, that was an invalid input. Please choose from the options.");
                     System.out.println();
+                    break;
             }
         }
 
@@ -207,6 +208,18 @@ public class Game {
                             Item tempItem = currentPlayer.removeItemFromPlayer(splitCommand[1]);
                             currentGameRooms.get(index).addItemToRoom(tempItem);
                             System.out.println(tempItem.getName() + " has been added to the " + currentGameRooms.get(index).getName() + "'s inventory");
+                        } else {
+                            System.out.println("That item is not in " + currentPlayer.getName() + "'s inventory");
+                        }
+                        break;
+
+                    case "inventory":
+                        currentPlayer.printInventory();
+                        break;
+
+                    case "inspect":
+                        if(currentPlayer.doesPlayerHaveItem(splitCommand[1])) {
+                            System.out.println(currentPlayer.getItemDescription(splitCommand[1]));
                         } else {
                             System.out.println("That item is not in " + currentPlayer.getName() + "'s inventory");
                         }
